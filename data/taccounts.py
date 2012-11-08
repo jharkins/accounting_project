@@ -26,7 +26,7 @@ dorc = ['','', 'Debit','Credit']
 accounts = {}
 
 # Build a dictionary of t-accounts
-with open('journal.csv', 'rb') as csvfile:
+with open('journal.v2.csv', 'rb') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         # Determine if this is a blank row

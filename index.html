@@ -32,12 +32,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Final Project</a>
+          <a class="brand" href="#/">Final Project</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li class="active"><a href="#/">Financial Documents</a></li>
+              <li><a href="#/about">About</a></li>
+              <li><a href="#/contact">Contact</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -45,19 +45,35 @@
     </div>
 
     <div class="container">
-
-      <h1>Account 3600: Final Project</h1>
-      <p>This is the final project for Accounting 3600. </p>
-
-      <div id="content_container">
-
-      </div>
-
+        <div class="row">
+            <div class="span3">
+                <div class="well sidebar-nav">
+                    <ul class="nav nav-list">
+                        <li class="active"><a href="#/">Summary</a></li>
+                        <li class="nav-header">Financial Documents</li>
+                        <li><a href="#/balance_sheet">Balance Sheet</a></li>
+                        <li><a href="#/income_statement">Income Statement</a></li>
+                        <li><a href="#/statement_cash">Statement of Cash Flows</a></li>
+                        <li class="nav-header">Supporting Documents</li>
+                        <li><a href="#/taccounts">T-Accounts</a></li>
+                        <li><a href="#/journal">Journal Entries</a></li>
+                        <li><a href="#/raw_transactions">Raw Transaction Log</a></li>
+                    </ul>
+                </div><!--/.well -->
+            </div><!--/span-->
+            <div class="span9">
+                <h1>Account 3600: Final Project</h1>
+                <p>This is the final project for Accounting 3600. </p>
+                <div id="content_container">
+                </div>
+            </div>
     </div> <!-- /container -->
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/lodash.min.js"></script>
+    <script src="js/backbone.min.js"></script>
+
 
     <script type="text/template" id="t-account-template">
             <% _.forEach(accounts, function(account, account_name) { %>
@@ -86,6 +102,7 @@
     </script>
 
     <script type="text/javascript">
+        
         $(document).ready(function() {
             $.getJSON('data/taccounts.v2.json', function(data) {
                 var container = $('#content_container')
@@ -96,20 +113,6 @@
 
                 $('#content_container').html(template);
 
-                //$.each(data, function(key, val) {
-                //    $('#content_container').append(
-                //        '<div class="row">'+key+'</div>'
-                //    );
-                //});
-
-                //$.each(data, function(key, val) {
-                //    items.push('<li id="' + key + '">' + val + '</li>');
-                //});
-
-                //$('<ul/>', {
-                //    'class': 'my-new-list',
-                //    html: items.join('')
-                //}).appendTo('body');
             });
         });
     </script>

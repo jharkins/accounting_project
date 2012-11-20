@@ -79,6 +79,7 @@
 
 
     <script type="text/template" id="t-account-template">
+        <h3>T-Accounts</h3>
             <% _.forEach(accounts, function(account, account_name) { %>
             <table class="table table-bordered span4">
                 <thead>
@@ -104,6 +105,17 @@
             <% }); %>
     </script>
 
+    <script type="text/template" id="transactions-template">
+        <h3>Raw Transaction Log</h3>
+        <p> 
+        <ol>
+        <% _.forEach(transactions, function(transaction) { %>
+            <li><%=transaction %>
+        <% }); %>
+        </ol>
+        </p>
+    </script>
+
     <script type="text/javascript">
 
         var TAccountView = Backbone.View.extend({                                 
@@ -121,6 +133,22 @@
         });                                                                     
 
         var tav = new TAccountView();
+
+        var TransView = Backbone.View.extend({                                 
+            el: '#content_container',                                           
+            render: function() {                                                
+                var that = this                                                 
+                $.getJSON('data/transactions.json', function(data) {
+                    var template = _.template(                              
+                        $('#transactions-template').html(),                  
+                        {transactions: data }
+                    );                                                      
+                    that.$el.html(template);                                
+                });                                                              
+            }                                                                   
+        });                                                                     
+
+        var rtv = new TransView();
 
         var updateNavigation = function(route) {
             var patt=new RegExp(route);
@@ -145,9 +173,12 @@
         var Router = Backbone.Router.extend({                                   
             routes: {                                                           
                 '': 'summary',                                                     
+                'business_analysis': 'business_analysis',                                             
+                'ratios': 'ratios',                                             
                 'balance_sheet': 'balance_sheet',                                             
                 'income_statement': 'income_statement',
                 'statement_cash': 'statement_cash',
+                'projected_financials': 'projected_financials',
                 'taccounts': 'taccounts',
                 'journal': 'journal',
                 'raw_transactions': 'raw_transactions'
@@ -156,6 +187,16 @@
             summary: function() {
                 updateNavigation(Backbone.history.fragment);
                 console.log("Summary");
+            },
+
+            business_analysis: function() {
+                updateNavigation(Backbone.history.fragment);
+                console.log("Business Analysis");
+            },
+
+            ratios: function() {
+                updateNavigation(Backbone.history.fragment);
+                console.log("Ratios");
             },
 
             balance_sheet: function() {
@@ -173,6 +214,11 @@
                 console.log("Satement of Cash");
             },
 
+            projected_financials: function() {
+                updateNavigation(Backbone.history.fragment);
+                console.log("Projected Financials");
+            },
+
             taccounts: function() {
                 updateNavigation(Backbone.history.fragment);
                 tav.render();
@@ -185,7 +231,7 @@
 
             raw_transactions: function() {
                 updateNavigation(Backbone.history.fragment);
-                console.log("Raw Transactions");
+                rtv.render();
             }
             
         });     

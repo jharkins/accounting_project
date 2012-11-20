@@ -49,11 +49,16 @@
             <div class="span3">
                 <div class="well sidebar-nav">
                     <ul class="nav nav-list">
+                        <li class="nav-header">Overview</li>
                         <li class="active"><a href="#/">Summary</a></li>
+                        <li><a href="#/business_analysis">Business Analysis</a></li>
+                        <li><a href="#/ratios">Ratios</a></li>
                         <li class="nav-header">Financial Documents</li>
                         <li><a href="#/balance_sheet">Balance Sheet</a></li>
                         <li><a href="#/income_statement">Income Statement</a></li>
                         <li><a href="#/statement_cash">Statement of Cash Flows</a></li>
+                        <li><a href="#/projected_financials">Projected
+                            Financials</a></li>
                         <li class="nav-header">Supporting Documents</li>
                         <li><a href="#/taccounts">T-Accounts</a></li>
                         <li><a href="#/journal">Journal Entries</a></li>
@@ -62,8 +67,6 @@
                 </div><!--/.well -->
             </div><!--/span-->
             <div class="span9">
-                <h1>Account 3600: Final Project</h1>
-                <p>This is the final project for Accounting 3600. </p>
                 <div id="content_container">
                 </div>
             </div>
@@ -102,7 +105,92 @@
     </script>
 
     <script type="text/javascript">
+
+        var TAccountView = Backbone.View.extend({                                 
+            el: '#content_container',                                           
+            render: function() {                                                
+                var that = this                                                 
+                $.getJSON('data/taccounts.v2.json', function(data) {
+                    var template = _.template(                              
+                        $('#t-account-template').html(),                  
+                        {accounts: data }
+                    );                                                      
+                    that.$el.html(template);                                
+                });                                                              
+            }                                                                   
+        });                                                                     
+
+        var tav = new TAccountView();
+
+        var updateNavigation = function(route) {
+            var patt=new RegExp(route);
+            var first = true;
+            navigation = $('.sidebar-nav li').each(function(index, nav) {
+                $(nav).removeClass('active');
+                href = $(nav).find('a').attr('href');
+
+                if (typeof href != 'undefined') {
+                    if ((route.length == 0) && (first == true) ) {
+                        console.log("null length");
+                        $(nav).addClass('active');
+                        first = false;
+                    } else if (href.match(patt) && (route.length != 0)) {
+                        $(nav).addClass('active');
+                    }
+
+                }
+            });
+        }
         
+        var Router = Backbone.Router.extend({                                   
+            routes: {                                                           
+                '': 'summary',                                                     
+                'balance_sheet': 'balance_sheet',                                             
+                'income_statement': 'income_statement',
+                'statement_cash': 'statement_cash',
+                'taccounts': 'taccounts',
+                'journal': 'journal',
+                'raw_transactions': 'raw_transactions'
+            },
+
+            summary: function() {
+                updateNavigation(Backbone.history.fragment);
+                console.log("Summary");
+            },
+
+            balance_sheet: function() {
+                updateNavigation(Backbone.history.fragment);
+                console.log("Balance Sheet");
+            },
+
+            income_statement: function() {
+                updateNavigation(Backbone.history.fragment);
+                console.log("Income Statement");
+            },
+            
+            statement_cash: function() {
+                updateNavigation(Backbone.history.fragment);
+                console.log("Satement of Cash");
+            },
+
+            taccounts: function() {
+                updateNavigation(Backbone.history.fragment);
+                tav.render();
+            },
+
+            journal: function() {
+                updateNavigation(Backbone.history.fragment);
+                console.log("Journal");
+            },
+
+            raw_transactions: function() {
+                updateNavigation(Backbone.history.fragment);
+                console.log("Raw Transactions");
+            }
+            
+        });     
+        
+        /*
         $(document).ready(function() {
             $.getJSON('data/taccounts.v2.json', function(data) {
                 var container = $('#content_container')
@@ -115,6 +203,11 @@
 
             });
         });
+        */
+
+        router = new Router();
+
+        Backbone.history.start(); 
     </script>
 
   </body>

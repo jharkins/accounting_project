@@ -226,6 +226,28 @@
 
         var isv = new IncomeView();
 
+        var RatioView = Backbone.View.extend({                                 
+            el: '#content_container',                                           
+            render: function(id) {                                                
+                var that = this                                                 
+                $.getJSON('data/ratios.v1.json', function(data) {
+                    var ratios = data;
+                    $.get('templates/Ratio.html', function(data) {
+                        var template = _.template(                              
+                            data,                  
+                            { 
+                                selected_ratio: id, 
+                                ratios: ratios
+                            }
+                        );                                                      
+                        that.$el.html(template);                                
+                    });                                                              
+                });
+            }                                                                   
+        });                                                                     
+
+        var rv = new RatioView();
+
         var CashView = Backbone.View.extend({                                 
             el: '#content_container',                                           
             render: function() {                                                
@@ -339,6 +361,7 @@
                 '': 'summary',                                                     
                 'business_analysis': 'business_analysis',                                             
                 'ratios': 'ratios',                                             
+                'ratios/:id': 'ratios',                                             
                 'balance_sheet': 'balance_sheet',                                             
                 'income_statement': 'income_statement',
                 'statement_cash': 'statement_cash',
@@ -364,9 +387,10 @@
                 console.log("Business Analysis");
             },
 
-            ratios: function() {
+            ratios: function(id) {
+                id = (typeof id === 'undefined') ? 'eps' : id;
                 updateNavigation(Backbone.history.fragment);
-                console.log("Ratios");
+                rv.render(id);
             },
 
             balance_sheet: function() {

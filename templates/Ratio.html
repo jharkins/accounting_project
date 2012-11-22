@@ -1,0 +1,94 @@
+<h3>Ratios And Analysis</h3>
+<div class="row">
+    <div class="span4">
+        <ul>
+            <li><a href="#/ratios/eps">Earnings Per Share</a></a></li>
+            <li><a href="#/ratios/pe">Price-Earnings Ratio</a></li>
+            <li><a href="#/ratios/roe">Return on Equity </a></li>
+            <li><a href="#/ratios/wc">Working Capital</a></li>
+            <li><a href="#/ratios/cr">Current Ratio</a></li>
+            <li><a href="#/ratios/qr">Quick Ratio</a></li>
+            <li><a href="#/ratios/art">AR Turnover</a></li>
+            <li><a href="#/ratios/it">Inventory Turnover</a></li>
+            <li><a href="#/ratios/gp">Gross Profit</a></li>
+            <li><a href="#/ratios/gpr">Gross Profit Ratio</a></li>
+            <li><a href="#/ratios/oi">Operating Income</a></li>
+            <li><a href="#/ratios/om">Operating Margin</a></li>
+            <li><a href="#/ratios/dte">Debt-to-Equity Ratio</a></li>
+            <li><a href="#/ratios/bvps">Book Value Per Share</a></li>
+        </ul>
+    </div>
+    <div class="span4">
+        <ul>
+            <li><a href="#/ratios/cfo">Cash From Operations</a></li>
+            <li><a href="#/ratios/pmr">Profit Margin Ratio</a></li>
+            <li><a href="#/ratios/roa">Return on Assets</a></li>
+            <li><a href="#/ratios/roc">Return on Capital</a></li>
+            <li><a href="#/ratios/atr">Asset Turnover Ratio</a></li>
+            <li><a href="#/ratios/ltdr">Long Term Debt Ratio</a></li>
+            <li><a href="#/ratios/ltde">Long Term Debt-Equity Ratio</a></li>
+            <li><a href="#/ratios/tdr">Total Debt Ratio</a></li>
+            <li><a href="#/ratios/ser">Shareholder Equity Ratio</a></li>
+            <li><a href="#/ratios/tier">Times Interest Earned Ratio</a></li>
+            <li><a href="#/ratios/ccr">Cash Coverage Ratio</a></li>
+            <li><a href="#/ratios/nwct">Net Working Capital to Total Assets Ratio</a></li>
+            <li><a href="#/ratios/cra">Cash Ratio</a></li>
+            <li><a href="#/ratios/par">Payout Ratio</a></li>
+            <li><a href="#/ratios/plr">Plowback Ratio</a></li>
+            <li><a href="#/ratios/sgr">Sustainable Growth Rate</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span9">
+        <h4><%=ratios[selected_ratio].name %></h4>
+        <p><%=ratios[selected_ratio].description %></p>
+        <p><%=ratios[selected_ratio].formula %></p>
+    </div>
+</div>
+<h4>Values</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>2012</th>
+            <th>2011</th>
+            <th>2010</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><%=ratios[selected_ratio].values[0] %></td>
+            <td><%=ratios[selected_ratio].values[1] %></td>
+            <td><%=ratios[selected_ratio].values[2] %></td>
+        </tr>
+    </tbody>
+</table>
+<h4>Graph</h4>
+<script type="text/javascript">
+    $.ajax({
+        url: 'img/graphs/<%=selected_ratio %>.png', 
+        type: 'HEAD',
+        success: function() {
+            $('#ratio_graph').attr('src', 'img/graphs/<%=selected_ratio
+                                   %>.png');
+        },
+        error: function() {
+            alert('No graph for <%=ratios[selected_ratio].name %> [<%=selected_ratio %>]');
+        }
+    });
+</script>
+<img id="ratio_graph" src="img/graphs/cartman.png" />
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

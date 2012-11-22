@@ -80,23 +80,24 @@
 
     <script type="text/template" id="t-account-template">
         <h3>T-Accounts</h3>
+        <p>Click on a entry to see the corresponding journal entry.</p>
             <% _.forEach(accounts, function(account, account_name) { %>
             <table class="table table-bordered span4">
                 <thead>
                     <tr><th colspan="2"><%=account_name %></th></tr>
                     <tr>
-                        <th>Debits</th>
+                        <th style="width: 50%">Debits</th>
                         <th>Credits</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><% _.forEach(account.Debit, function(a){ %>
-                            <%=a %><br />
+                            <a href="#/detail/<%=a[0] %>"><%=a[1] %></a><br />
                             <% }); %>
                         </td>
                         <td><% _.forEach(account.Credit, function(a){ %>
-                            <%=a %><br />
+                            <a href="#/detail/<%=a[0] %>"><%=a[1] %></a><br />
                             <% }); %>
                         </td>
                     </tr>
@@ -107,14 +108,89 @@
 
     <script type="text/template" id="transactions-template">
         <h3>Raw Transaction Log</h3>
-        <p> 
-        <ol>
-        <% _.forEach(transactions, function(transaction) { %>
-            <li><%=transaction %>
+        <% _.forEach(transactions, function(transaction, id) { %>
+            <div class="row">
+                <div class="span1"><%=id+1 %></div>
+                <div class="span6">
+                    <%=transaction %>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 20px;">
+                <div class="span6 offset1">
+                    <a href="#/detail/<%=id+1 %>">Click for Journal Entry</a>
+                </div>
+            </div>
         <% }); %>
-        </ol>
-        </p>
     </script>
+
+    <script type="text/template" id="journal-template">
+        <h3>Journal Entries</h3>
+        <% _.forEach(journal_entries, function(transaction) { %>
+            <div class="row" style="margin-bottom: 30px;">
+                <div class="span1">
+                    <%=transaction.id %>
+                </div>
+
+                <div class="span1">
+                    <%=transaction.date %>
+                </div>
+
+                <div class="span6">
+                    <% _.forEach(transaction.entries, function(entry) { %>
+                        <div class="row">
+                            <div class="span3"><%=entry[0] %></div>
+                            <% if (entry[1] == 'Debit') { %>
+                                <div class="span1"><%=entry[2] %></div>
+                            <% } %>
+                            <% if (entry[1] == 'Credit') { %>
+                                <div class="span1 offset1"><%=entry[2] %></div>
+                            <% } %>
+                        </div>
+                    <% }); %>
+                </div>
+                <div class="span6 offset2">
+                    <strong><%=transaction.transaction_note %></strong>
+                </div>
+
+            </div>
+        <% }); %>
+    </script>
+
+    <script type="text/template" id="detail-template">
+        <h3>Entry Details</h3>
+        <h4>Event List Entry</h4>
+        <p><%=raw_transaction %></p>
+        <h4>Journal Entry</h4>
+        <div class="row" style="margin-bottom: 30px;">
+            <div class="span1">
+                <%=journal_entry.id %>
+            </div>
+
+            <div class="span1">
+                <%=journal_entry.date %>
+            </div>
+
+            <div class="span6">
+                <% _.forEach(journal_entry.entries, function(entry) { %>
+                    <div class="row">
+                        <div class="span3"><%=entry[0] %></div>
+                        <% if (entry[1] == 'Debit') { %>
+                            <div class="span1"><%=entry[2] %></div>
+                        <% } %>
+                        <% if (entry[1] == 'Credit') { %>
+                            <div class="span1 offset1"><%=entry[2] %></div>
+                        <% } %>
+                    </div>
+                <% }); %>
+            </div>
+            <div class="span6 offset2">
+                <strong><%=journal_entry.transaction_note %></strong>
+            </div>
+
+        </div>
+
+    </script>
+
 
     <script type="text/javascript">
 
@@ -122,7 +198,7 @@
             el: '#content_container',                                           
             render: function() {                                                
                 var that = this                                                 
-                $.getJSON('data/taccounts.v2.json', function(data) {
+                $.getJSON('data/taccounts.v4.json', function(data) {
                     var template = _.template(                              
                         $('#t-account-template').html(),                  
                         {accounts: data }
@@ -149,6 +225,46 @@
         });                                                                     
 
         var rtv = new TransView();
+
+        var JournalView = Backbone.View.extend({                                 
+            el: '#content_container',                                           
+            render: function() {                                                
+                var that = this                                                 
+                $.getJSON('data/journal_entries.v4.json', function(data) {
+                    var template = _.template(                              
+                        $('#journal-template').html(),                  
+                        {journal_entries: data }
+                    );                                                      
+                    that.$el.html(template);                                
+                });                                                              
+            }                                                                   
+        });                                                                     
+
+        var jv = new JournalView();
+
+        var DetailView = Backbone.View.extend({
+            el: '#content_container',                                           
+            render: function(id) {                                                
+                var that = this;                                               
+                var trans_id = id;
+                $.getJSON('data/journal_entries.v4.json', function(data) {
+                    var journal_entry = data[trans_id];
+                    $.getJSON('data/transactions.json', function(data) {
+                        raw_transaction = data[trans_id-1];
+                        var template = _.template(                              
+                            $('#detail-template').html(),                  
+                            {
+                                journal_entry: journal_entry, 
+                                raw_transaction: raw_transaction
+                            }
+                        );                                                      
+                        that.$el.html(template);                                
+                    });
+                });                                                              
+            }                                                                   
+        });
+
+        var dv = new DetailView();
 
         var updateNavigation = function(route) {
             var patt=new RegExp(route);
@@ -181,7 +297,13 @@
                 'projected_financials': 'projected_financials',
                 'taccounts': 'taccounts',
                 'journal': 'journal',
-                'raw_transactions': 'raw_transactions'
+                'raw_transactions': 'raw_transactions',
+                'detail/:id': 'detail'
+            },
+
+            detail: function(id) {
+                updateNavigation("The Blank");
+                dv.render(id);
             },
 
             summary: function() {
@@ -226,7 +348,7 @@
 
             journal: function() {
                 updateNavigation(Backbone.history.fragment);
-                console.log("Journal");
+                jv.render();
             },
 
             raw_transactions: function() {

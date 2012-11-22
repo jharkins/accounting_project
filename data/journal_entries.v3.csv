@@ -1,0 +1,151 @@
+1,,,Inventory," $325,000.00 ",
+,,,Cash,," $130,000.00 "
+,,,Accounts Payable,," $195,000.00 "
+,,"Purchased inventory, 40% in cash and 60% on account",,,
+2,15-Dec,,Wage Expense," $570,000.00 ",
+,,,Wages Payable,," $570,000.00 "
+,,Recorded wage expenses for 2012 to December 15,,,
+,,,Wages Payable," $720,000.00 ",
+,,,Cash,," $720,000.00 "
+,,"Paid full wages payable to December 15, 2012",,,
+3,31-Dec,,Wage Expense," $45,000.00 ",
+,,,Wages Payable,," $45,000.00 "
+,,"Recorded wage expenses for Dec. 15 - December 31, 2012",,,
+4,,,Cash," $325,000.00 ",
+,,,Accounts Receivable,," $325,000.00 "
+,,"Collected $325,000 account payments from customers",,,
+5,,,Accounts Payable," $285,000.00 ",
+,,,Cash,," $285,000.00 "
+,,"Paid 285,000 toward accounts payable",,,
+6,1-Jul,,Cash," $1,045,000.00 ",
+,,,Bonds Payable,," $1,000,000.00 "
+,,,Premium on Bonds Payable,," $45,000.00 "
+,,Issued 1000 bonds at a premium of 104.5,,,
+,31-Dec,,Bond Interest Expense," $15,675.00 ",
+,,,Premium on Bonds Payable," $4,325.00 ",
+,,,Bond Interest Payable,," $20,000.00 "
+,,Amortized bonds using effective interest method for 1/2 year,,,
+7,,,Depreciation Expense," $500,000.00 ",
+,,,Accumulated Depreciation- Equipment,," $500,000.00 "
+,,"Recorded $500,000 depreciation expense for equipment purchased before 2012",,,
+8,,,Cash," $400,000.00 ",
+,,,Deferred Revenue,," $400,000.00 "
+,,"Received $400,000 cash for deferred revenue",,,
+9,1-May,, Dividends Payable ," $155,000.00 ",
+,,, Cash ,," $155,000.00 "
+,,Paid dividends owed to customers,,,
+10,,,Cash," $1,740,000.00 ",
+,,,Accounts Receivable," $1,160,000.00 ",
+,,,Sales Revenue,," $2,900,000.00 "
+,,,COGS," $1,050,000.00 ",
+,,,Inventory,," $1,050,000.00 "
+,,"Customers bought $2,900,000 of product, 60% in cash and 40% on account",,,
+11,,,Cash," $2,045,000.00 ",
+,,,Land,," $1,445,000.00 "
+,,,Gain on Sale of Land,," $600,000.00 "
+,,Sold land for cash,,,
+12,,,Cash," $21,900.00 ",
+,,,Interest Income,," $21,900.00 "
+,,Received interest income on average 2011-2010 cash balances,,,
+13,31-Dec,,Retained Earnings," $1,200,000.00 ",
+,,,Dividends Payable,," $1,200,000.00 "
+,,Declared dividends of $0.40 a share to be paid later,,,
+14,,,Office Supplies," $23,000.00 ",
+,,,Cash,," $23,000.00 "
+,,Purchased office supplies with cash,,,
+15,1-Mar,,Land," $1,000,000.00 ",
+,,,Cash,," $400,000.00 "
+,,,Short Term Note payable,," $600,000.00 "
+,,Purchased land ,,,
+,31-Dec,,Interest Expense," $30,000.00 ",
+,,,Cash,," $22,500.00 "
+,,,Interest Payable,," $7,500.00 "
+,,Paid interest on short term note payable,,,
+16,1-Jan,,Office Furniture," $50,000.00 ",
+,,,Cash,," $50,000.00 "
+,,Purchased office furniture,,,
+,31-Dec,,Depreciation Expense," $5,000.00 ",
+,,,Accumulated Depreciation,," $5,000.00 "
+,,Recorded depreciation for one year,,,
+17,1-Nov,,Prepaid Insurance," $180,000.00 ",
+,,,Cash,," $180,000.00 "
+,,Purchased two-year building insurance policy,,,
+,31-Dec,,Insurance Expense," $15,000.00 ",
+,,,Prepaid Insurance,," $15,000.00 "
+,,Recorded 2 months' insurance expense,,,
+18,1-Jan,,Equipment," $235,000.00 ",
+,,,Cash,," $235,000.00 "
+,,Purchased truck,,,
+,31-Dec,,Depreciation Expense," $58,750.00 ",
+,,,Accumulated Depreciation,," $58,750.00 "
+,,Recorded depreciation for one year (declining balance method),,,
+19,1-Jun,,Prepaid Rent," $60,000.00 ",
+,,,Cash,," $60,000.00 "
+,,Leased additional warehouse space,,,
+,31-Dec,,Rent Expense," $17,500.00 ",
+,,,Prepaid Rent,," $17,500.00 "
+,,Recorded rent expense for seven months,,,
+20,,,No Transaction,,
+,,,,,
+21,1-Jan,,Cash," $100,000.00 ",
+,,,Long Term Note Payable,," $100,000.00 "
+,,Took a five year note payable from the bank,,,
+22,31-Dec,,Long Term Note Payable," $25,000.00 ",
+,,,Interest Expense," $5,000.00 ",
+,,,Cash,," $30,000.00 "
+,,Cash paid toward note payable ,,,
+23,1-Nov,,Marketable Securities," $47,000.00 ",
+,,,Cash,," $47,000.00 "
+,,Purchased marketable securities,,,
+24,31-Dec,,Securities Fair Value Adjustment," $4,000.00 ",
+,,,Unrealized Gain,," $4,000.00 "
+,,Fair market value for securities increased,,,
+25,,,Cash," $8,000.00 ",
+,,,Contributed Capital,," $8,000.00 "
+,,"Collected contributed capital of $8,000",,,
+26,8-Mar,,Cash," $20,000.00 ",
+,,,Deferred Revenue,," $20,000.00 "
+,,Received a payment for 500 hours of future services to be rendered,,,
+27,31-Dec,,Deferred Revenue," $8,000.00 ",
+,,,Sales Revenue,," $8,000.00 "
+,,Performed 200 of the 500 hours of services,,,
+28,31-Dec,,Cash,," $30,000.00 "
+,,,Advertising Expense," $30,000.00 ",
+,,Paid cash for advertising for the remainder of 2012,,,
+29,,,Inventory," $240,000.00 ",
+,,,Accounts Payable,," $240,000.00 "
+,,Purchased inventory on account,,,
+30,31-Dec,,Utility Expense," $37,000.00 ",
+,,,Cash,," $37,000.00 "
+,,Paid utility bill for the year,,,
+31,,,Cash," $550,000.00 ",
+,,,Accumulated Depreciation," $75,000.00 ",
+,,,Equipment ,," $650,000.00 "
+,,,Loss on Sale of Equipment," $25,000.00 ",
+,,Sold equipment,,,
+32,,,Cash," $110,000.00 ",
+,,,Accounts Receivable,," $110,000.00 "
+,,Received payment from customer paying toward account,,,
+33,,,Accounts Payable," $16,000.00 ",
+,,,Cash,," $16,000.00 "
+,,Paid supplier for purchase made on account,,,
+34,,,No economic transaction,,
+,,,,,
+35,31-Dec,,Supplies Expense," $7,000.00 ",
+,,,Office Supplies,," $7,000.00 "
+,,Used office supplies,,,
+36,31-Dec,,Fuel Expense, $900.00 ,
+,,,Cash,, $900.00 
+,,Purchased and used fuel,,,
+37,1-Aug,,Patent," $40,000.00 ",
+,,,Cash,," $40,000.00 "
+,,Purchased patent,,,
+,31-Dec,,Amortization," $1,666.67 ",
+,,,Patent,," $1,666.67 "
+,,Amortized patent for five month period,,,
+38,,,Allowance for Doubtful Accounts," $10,000.00 ",
+,,,Accounts Receivable,," $10,000.00 "
+,,Customer filed for bankruptcy with purchases still on account,,,
+39,31-Dec,,Bad debt expense," $160,500.00 ",
+,,,Allowance for Doubtful Accounts,," $160,500.00 "
+,,Adjusted allowance for doubtful accounts to historical levels,,,

@@ -342,6 +342,22 @@
 
         var cfv = new CashView();
 
+        var ProjectedView = Backbone.View.extend({                                 
+            el: '#content_container',                                           
+            render: function() {                                                
+                var that = this                                                 
+                $.get('templates/Projected2013Income.html', function(data) {
+                    //var template = _.template(                              
+                    //    $('#t-account-template').html(),                  
+                    //    {accounts: data }
+                    //);                                                      
+                    that.$el.html(data);                                
+                });                                                              
+            }                                                                   
+        });                                                                     
+
+        var pf = new ProjectedView();
+
         var TAccountView = Backbone.View.extend({                                 
             el: '#content_container',                                           
             render: function() {                                                
@@ -489,7 +505,7 @@
 
             projected_financials: function() {
                 updateNavigation(Backbone.history.fragment);
-                console.log("Projected Financials");
+                pf.render();
             },
 
             taccounts: function() {

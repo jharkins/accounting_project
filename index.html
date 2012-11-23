@@ -61,8 +61,10 @@
                         <li><a href="#/ratios">Ratios</a></li>
                         <li><a href="#/business_analysis">Business Analysis</a></li>
                         <li class="nav-header">Projections</li>
+
                         <li><a href="#/projected_financials">Projected Income
                             Statement</a></li>
+                        <li><a href="#/actual_vs_predicted">Actual vs. Predicted Earnings Per Share Evaluation Statement</a></li>
                         <li class="nav-header">Supporting Documents</li>
                         <li><a href="#/taccounts">T-Accounts</a></li>
                         <li><a href="#/journal">Journal Entries</a></li>
@@ -443,6 +445,7 @@
                 'statement_cash': 'statement_cash',
                 'projected_financials': 'projected_financials',
                 'taccounts': 'taccounts',
+                'actual_vs_predicted': 'actual_vs_predicted',
                 'journal': 'journal',
                 'raw_transactions': 'raw_transactions',
                 'detail/:id': 'detail'
@@ -490,6 +493,11 @@
             },
 
             taccounts: function() {
+                updateNavigation(Backbone.history.fragment);
+                tav.render();
+            },
+
+            actual_vs_predicted: function() {
                 updateNavigation(Backbone.history.fragment);
                 tav.render();
             },

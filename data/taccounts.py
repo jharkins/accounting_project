@@ -53,22 +53,24 @@ with open('journal_entries.v3.csv', 'rb') as csvfile:
                 if re.match('^[0-9]+$', cell):
                     print "\nTransaction Detected: {}".format(cell)
                     transaction_id = cell
+                    transaction_row_index = 0
                     journal_entries[transaction_id] = {
                             'id': cell,
-                            'date': '31-Dec',
-                            'transaction_note': '',
-                            'entries': []
+                            'date': {0: '31-Dec'},
+                            'transaction_note': {},
+                            'entries': {},
+                            'num_rows': 0
                     }
 
                 if re.match('^[0-9]+-[A-Za-z]+$', cell):
                     print "Date Detected: {}".format(cell)
-                    journal_entries[transaction_id]['date'] = cell
+                    journal_entries[transaction_id]['date'][transaction_row_index] = cell
 
                 if re.match('^[\sA-Za-z-_\(\)]', cell):
                     a = cell.strip()
                     if cn == 2:
                         print "Note Detected: {} in column {}".format(a,cn)
-                        journal_entries[transaction_id]['transaction_note'] = a
+                        journal_entries[transaction_id]['transaction_note'][transaction_row_index] = a
 
                     if cn == 3:
                         print "Account Detected: {} in column {}".format(a,cn)
@@ -89,22 +91,24 @@ with open('journal_entries.v3.csv', 'rb') as csvfile:
                     print "In {} a {} of {} was found".format(account, dorc[cn], s)
 
                     accounts[account][dorc[cn]].append([transaction_id, s])
-                    journal_entries[transaction_id]['entries'].append( [account, dorc[cn], s])
+                    journal_entries[transaction_id]['entries'][transaction_row_index] = [account, dorc[cn], s]
 
             cn+=1
 
 
         # If it's not a blank row, 
         if all_blank == False:
-            pass
+            transaction_row_index += 1
+            print "The transaction row index: {}".format(transaction_row_index)
+            journal_entries[transaction_id]['num_rows']=transaction_row_index
 
 pprint(journal_entries)
 pprint(accounts)
 
-with io.open('taccounts.v4.json', 'wb') as outfile:
+with io.open('taccounts.v5.json', 'wb') as outfile:
     json.dump(accounts, outfile)
 
-with io.open('journal_entries.v4.json', 'wb') as outfile:
+with io.open('journal_entries.v5.json', 'wb') as outfile:
     json.dump(journal_entries, outfile)
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Accounting 3600: Final Project</title>
+    <title>Alotonic Beverages Incorporated - Financials 2012</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -32,14 +32,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#/">Final Project</a>
+          <a class="brand" href="#/">Alotonic Beverages Incorporated</a>
+          <!--
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="#/">Financial Documents</a></li>
               <li><a href="#/about">About</a></li>
               <li><a href="#/contact">Contact</a></li>
             </ul>
-          </div><!--/.nav-collapse -->
+          </div> /.nav-collapse -->
         </div>
       </div>
     </div>
@@ -50,15 +51,18 @@
                 <div class="well sidebar-nav">
                     <ul class="nav nav-list">
                         <li class="nav-header">Overview</li>
-                        <li class="active"><a href="#/">Summary</a></li>
-                        <li><a href="#/business_analysis">Business Analysis</a></li>
-                        <li><a href="#/ratios">Ratios</a></li>
-                        <li class="nav-header">Financial Documents</li>
-                        <li><a href="#/balance_sheet">Balance Sheet</a></li>
+                        <li class="active"><a href="#/">Company Introduction and
+                        Overview</a></li>
+                        <li class="nav-header">Financial Statements</li>
                         <li><a href="#/income_statement">Income Statement</a></li>
+                        <li><a href="#/balance_sheet">Balance Sheet</a></li>
                         <li><a href="#/statement_cash">Statement of Cash Flows</a></li>
-                        <li><a href="#/projected_financials">Projected
-                            Financials</a></li>
+                        <li class="nav-header">Analysis</li>
+                        <li><a href="#/ratios">Ratios</a></li>
+                        <li><a href="#/business_analysis">Business Analysis</a></li>
+                        <li class="nav-header">Projections</li>
+                        <li><a href="#/projected_financials">Projected Income
+                            Statement</a></li>
                         <li class="nav-header">Supporting Documents</li>
                         <li><a href="#/taccounts">T-Accounts</a></li>
                         <li><a href="#/journal">Journal Entries</a></li>
@@ -126,33 +130,52 @@
     <script type="text/template" id="journal-template">
         <h3>Journal Entries</h3>
         <% _.forEach(journal_entries, function(transaction) { %>
-            <div class="row" style="margin-bottom: 30px;">
-                <div class="span1">
-                    <%=transaction.id %>
-                </div>
+            <table class="table table-bordered">
+                <% for (var ri=0; ri<transaction.num_rows; ri++) { %> 
+                <tr>
+                    <td class="span2"><%=transaction.date[ri] %></td>
+                    <% if (
+                        (typeof transaction.entries[ri] != 'undefined') &&
+                        (typeof transaction.entries[ri][0] != 'undefined')
+                        ) { %>
+                        <td><%=transaction.entries[ri][0] %></td>
+                    <% } else if (
+                        (typeof transaction.transaction_note[ri] != 'undefined')
+                    ) { %> 
+                    <td colspan="1">
+                        <strong><%=transaction.transaction_note[ri] %></strong>
+                    </td>
+                    <% }; %>
 
-                <div class="span1">
-                    <%=transaction.date %>
-                </div>
-
-                <div class="span6">
-                    <% _.forEach(transaction.entries, function(entry) { %>
-                        <div class="row">
-                            <div class="span3"><%=entry[0] %></div>
-                            <% if (entry[1] == 'Debit') { %>
-                                <div class="span1"><%=entry[2] %></div>
-                            <% } %>
-                            <% if (entry[1] == 'Credit') { %>
-                                <div class="span1 offset1"><%=entry[2] %></div>
-                            <% } %>
-                        </div>
-                    <% }); %>
-                </div>
-                <div class="span6 offset2">
-                    <strong><%=transaction.transaction_note %></strong>
-                </div>
-
-            </div>
+                    <% 
+                        if (
+                            (typeof transaction.entries[ri] != 'undefined') &&
+                            (transaction.entries[ri][1] == 'Debit')
+                        ) { %>
+                            <td class="span2">
+                                <%=transaction.entries[ri][2] %>
+                            </td>
+                            <td class="span2">
+                                &nbsp;
+                            </td>
+                    <% } else if (
+                            (typeof transaction.entries[ri] != 'undefined') &&
+                            (transaction.entries[ri][1] == 'Credit')
+                        ) { %>
+                            <td class="span2">
+                                &nbsp;
+                            </td>
+                            <td class="span2">
+                                <%=transaction.entries[ri][2] %>
+                            </td>
+                    <% } else { %>
+                         
+                        <td colspan="2">&nbsp; </td> 
+                    
+                    <% }; %>
+                </tr>
+                <% } %>
+            </table>
         <% }); %>
     </script>
 
@@ -161,33 +184,52 @@
         <h4>Event List Entry</h4>
         <p><%=raw_transaction %></p>
         <h4>Journal Entry</h4>
-        <div class="row" style="margin-bottom: 30px;">
-            <div class="span1">
-                <%=journal_entry.id %>
-            </div>
+            <table class="table table-bordered">
+                <% for (var ri=0; ri<transaction.num_rows; ri++) { %> 
+                <tr>
+                    <td class="span2"><%=transaction.date[ri] %></td>
+                    <% if (
+                        (typeof transaction.entries[ri] != 'undefined') &&
+                        (typeof transaction.entries[ri][0] != 'undefined')
+                        ) { %>
+                        <td><%=transaction.entries[ri][0] %></td>
+                    <% } else if (
+                        (typeof transaction.transaction_note[ri] != 'undefined')
+                    ) { %> 
+                    <td colspan="1">
+                        <strong><%=transaction.transaction_note[ri] %></strong>
+                    </td>
+                    <% }; %>
 
-            <div class="span1">
-                <%=journal_entry.date %>
-            </div>
-
-            <div class="span6">
-                <% _.forEach(journal_entry.entries, function(entry) { %>
-                    <div class="row">
-                        <div class="span3"><%=entry[0] %></div>
-                        <% if (entry[1] == 'Debit') { %>
-                            <div class="span1"><%=entry[2] %></div>
-                        <% } %>
-                        <% if (entry[1] == 'Credit') { %>
-                            <div class="span1 offset1"><%=entry[2] %></div>
-                        <% } %>
-                    </div>
-                <% }); %>
-            </div>
-            <div class="span6 offset2">
-                <strong><%=journal_entry.transaction_note %></strong>
-            </div>
-
-        </div>
+                    <% 
+                        if (
+                            (typeof transaction.entries[ri] != 'undefined') &&
+                            (transaction.entries[ri][1] == 'Debit')
+                        ) { %>
+                            <td class="span2">
+                                <%=transaction.entries[ri][2] %>
+                            </td>
+                            <td class="span2">
+                                &nbsp;
+                            </td>
+                    <% } else if (
+                            (typeof transaction.entries[ri] != 'undefined') &&
+                            (transaction.entries[ri][1] == 'Credit')
+                        ) { %>
+                            <td class="span2">
+                                &nbsp;
+                            </td>
+                            <td class="span2">
+                                <%=transaction.entries[ri][2] %>
+                            </td>
+                    <% } else { %>
+                         
+                        <td colspan="2">&nbsp; </td> 
+                    
+                    <% }; %>
+                </tr>
+                <% } %>
+            </table>
 
     </script>
 
@@ -268,7 +310,7 @@
             el: '#content_container',                                           
             render: function() {                                                
                 var that = this                                                 
-                $.getJSON('data/taccounts.v4.json', function(data) {
+                $.getJSON('data/taccounts.v5.json', function(data) {
                     var template = _.template(                              
                         $('#t-account-template').html(),                  
                         {accounts: data }
@@ -300,7 +342,7 @@
             el: '#content_container',                                           
             render: function() {                                                
                 var that = this                                                 
-                $.getJSON('data/journal_entries.v4.json', function(data) {
+                $.getJSON('data/journal_entries.v5.json', function(data) {
                     var template = _.template(                              
                         $('#journal-template').html(),                  
                         {journal_entries: data }
@@ -317,14 +359,14 @@
             render: function(id) {                                                
                 var that = this;                                               
                 var trans_id = id;
-                $.getJSON('data/journal_entries.v4.json', function(data) {
-                    var journal_entry = data[trans_id];
+                $.getJSON('data/journal_entries.v5.json', function(data) {
+                    var transaction = data[trans_id];
                     $.getJSON('data/transactions.json', function(data) {
                         raw_transaction = data[trans_id-1];
                         var template = _.template(                              
                             $('#detail-template').html(),                  
                             {
-                                journal_entry: journal_entry, 
+                                transaction: transaction, 
                                 raw_transaction: raw_transaction
                             }
                         );                                                      

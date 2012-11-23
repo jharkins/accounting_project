@@ -90,20 +90,54 @@
                 <thead>
                     <tr><th colspan="2"><%=account_name %></th></tr>
                     <tr>
-                        <th style="width: 50%">Debits</th>
-                        <th>Credits</th>
+                        <% if (account.starting_balance < 0) { %>
+                        <th>
+                            &nbsp;
+                        </th>
+                        <th>
+                            <%= formatCurrency(Math.abs(account.starting_balance)) %>  
+                        </th>
+                        <% } else if (account.starting_balance == 0) { %>
+                        <th colspan="2">
+                            No Starting Balance
+                        </th>
+                        <% } else { %>
+                        <th>
+                            <%= formatCurrency(account.starting_balance) %>  
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                        <% } %>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><% _.forEach(account.Debit, function(a){ %>
+                        <td style="border-top: 2px solid black;" class="span2"><% _.forEach(account.Debit, function(a){ %>
                             <a href="#/detail/<%=a[0] %>"><%=a[1] %></a><br />
                             <% }); %>
                         </td>
-                        <td><% _.forEach(account.Credit, function(a){ %>
+                        <td style="border-top: 2px solid black;" class="span2"><% _.forEach(account.Credit, function(a){ %>
                             <a href="#/detail/<%=a[0] %>"><%=a[1] %></a><br />
                             <% }); %>
                         </td>
+                    </tr>
+                    <tr>
+                        <% if (account.ending_balance < 0) { %>
+                        <th style="border-top: 2px solid black;">
+                            <%= formatCurrency(Math.abs(account.ending_balance)) %>  
+                        </th>
+                        <th style="border-top: 2px solid black;">
+                            &nbsp;
+                        </th>
+                        <% } else { %>
+                        <th style="border-top: 2px solid black;">
+                            &nbsp;
+                        </th>
+                        <th style="border-top: 2px solid black;">
+                            <%= formatCurrency(account.ending_balance) %>  
+                        </th>
+                        <% } %>
                     </tr>
                 </tbody>
             </table>
@@ -472,6 +506,21 @@
             
         });     
         
+
+
+        var formatCurrency = function (num) {
+            num = num.toString().replace(/\$|\,/g, '');
+            if (isNaN(num)) num = "0";
+            sign = (num == (num = Math.abs(num)));
+            num = Math.floor(num * 100 + 0.50000000001);
+            cents = num % 100;
+            num = Math.floor(num / 100).toString();
+            if (cents < 10) cents = "0" + cents;
+            for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
+            num = num.substring(0, num.length - (4 * i + 3)) + ',' + num.substring(num.length - (4 * i + 3));
+            return (((sign) ? '' : '-') + '$' + num + '.' + cents);
+        }
+
         /*
         $(document).ready(function() {
             $.getJSON('data/taccounts.v2.json', function(data) {

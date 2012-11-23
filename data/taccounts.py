@@ -3,6 +3,7 @@ import re
 from pprint import pprint
 import json
 import io
+import math
 
 ''' T-Account Dictionary
 
@@ -18,6 +19,57 @@ For each account_name, create the
 
 
 '''
+balances = {
+    '': {'starting': 0, 'balance': 0},
+    'Allowance for Doubtful Accounts': {'starting': -25000, 'balance':0},
+    'Contributed Capital': {'starting': -3000000, 'balance':0},
+    'Patent': {'starting': 0, 'balance':0},
+    'Bond Interest Expense': {'starting': 0, 'balance':0},
+    'Gain on Sale of Land': {'starting': 0, 'balance':0},
+    'Securities Fair Value Adjustment': {'starting': 0, 'balance':0},
+    'Equipment': {'starting': 5000000, 'balance':0},
+    'Sales Revenue': {'starting': 0, 'balance':0},
+    'Advertising Expense': {'starting': 0, 'balance':0},
+    'Interest Expense': {'starting': 0, 'balance':0},
+    'Utility Expense': {'starting': 0, 'balance':0},
+    'Wage Expense': {'starting': 0, 'balance':0},
+    'Office Supplies': {'starting': 0, 'balance':0},
+    'Retained Earnings': {'starting': -1995000, 'balance':0},
+    'Supplies Expense': {'starting': 0, 'balance':0},
+    'Loss on Sale of Equipment': {'starting': 0, 'balance':0},
+    'Office Furniture': {'starting': 0, 'balance':0},
+    'COGS': {'starting': 0, 'balance':0},
+    'No economic transaction': {'starting': 0, 'balance':0},
+    'Bond Interest Payable': {'starting': 0, 'balance':0},
+    'Wages Payable': {'starting': -150000, 'balance':0},
+    'Interest Income': {'starting': 0, 'balance':0},
+    'Accumulated Depreciation': {'starting': -2000000, 'balance':0},
+    'Marketable Securities': {'starting': 75000, 'balance':0},
+    'Premium on Bonds Payable': {'starting': 0, 'balance':0},
+    'Land': {'starting': 1450000, 'balance':0},
+    'Cash': {'starting': 785000, 'balance':0},
+    'Prepaid Insurance': {'starting': 0, 'balance':0},
+    'Accounts Payable': {'starting': -450000, 'balance':0},
+    'Bad debt expense': {'starting': 0, 'balance':0},
+    'Accounts Receivable': {'starting': 455000, 'balance':0},
+    'Amortization': {'starting': 0, 'balance':0},
+    'Short Term Note payable': {'starting': 0, 'balance':0},
+    'Rent Expense': {'starting': 0, 'balance':0},
+    'Accumulated Depreciation- Equipment': {'starting': 0, 'balance':0},
+    'Unrealized Gain': {'starting': 0, 'balance':0},
+    'Fuel Expense': {'starting': 0, 'balance':0},
+    'Dividends Payable': {'starting': -155000, 'balance':0},
+    'Bonds Payable': {'starting': 0, 'balance':0},
+    'Prepaid Rent': {'starting': 0, 'balance':0},
+    'Depreciation Expense': {'starting': 0, 'balance':0},
+    'Interest Payable': {'starting': 0, 'balance':0},
+    'Insurance Expense': {'starting': 0, 'balance':0},
+    'Deferred Revenue': {'starting': 0, 'balance':0},
+    'No Transaction': {'starting': 0, 'balance':0},
+    'Long Term Note Payable': {'starting': -1250000, 'balance':0},
+    'Long Term Notes Receivable': {'starting': 285000, 'balance':0},
+    'Inventory': {'starting': 975000, 'balance':0}
+}
 
 # Used for labeling a column
 dorc = ['','', '', '', 'Debit','Credit']
@@ -102,8 +154,29 @@ with open('journal_entries.v3.csv', 'rb') as csvfile:
             print "The transaction row index: {}".format(transaction_row_index)
             journal_entries[transaction_id]['num_rows']=transaction_row_index
 
-pprint(journal_entries)
-pprint(accounts)
+for account_name in accounts:
+
+    #print accounts[account_name]
+    starting_balance = balances[account_name]['starting']
+
+    total_credits = 0
+    total_debits = 0
+
+    if starting_balance < 0:
+        total_credits += math.fabs(starting_balance)
+    else:
+        total_debits += starting_balance
+
+    for credit in accounts[account_name]['Credit']:
+        total_credits += float(credit[1].strip('$').replace(',',''))
+
+    for debit in accounts[account_name]['Debit']:
+        total_debits += float(debit[1].strip('$').replace(',',''))
+
+    balance = total_credits - total_debits
+
+    accounts[account_name]['starting_balance'] = starting_balance
+    accounts[account_name]['ending_balance'] = balance
 
 with io.open('taccounts.v5.json', 'wb') as outfile:
     json.dump(accounts, outfile)

@@ -358,6 +358,22 @@
 
         var pf = new ProjectedView();
 
+        var AvPView = Backbone.View.extend({                                 
+            el: '#content_container',                                           
+            render: function() {                                                
+                var that = this                                                 
+                $.get('templates/ActualVsPredicted.html', function(data) {
+                    //var template = _.template(                              
+                    //    $('#t-account-template').html(),                  
+                    //    {accounts: data }
+                    //);                                                      
+                    that.$el.html(data);                                
+                });                                                              
+            }                                                                   
+        });                                                                     
+
+        var avp = new AvPView();
+
         var TAccountView = Backbone.View.extend({                                 
             el: '#content_container',                                           
             render: function() {                                                
@@ -515,7 +531,7 @@
 
             actual_vs_predicted: function() {
                 updateNavigation(Backbone.history.fragment);
-                console.log("Projected Financials");
+                avp.render();
             },
 
             journal: function() {

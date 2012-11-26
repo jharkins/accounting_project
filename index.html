@@ -358,6 +358,22 @@
 
         var pf = new ProjectedView();
 
+        var BusinessAnalysisView = Backbone.View.extend({                                 
+            el: '#content_container',                                           
+            render: function() {                                                
+                var that = this                                                 
+                $.get('templates/BusinessAnalysis.html', function(data) {
+                    //var template = _.template(                              
+                    //    $('#t-account-template').html(),                  
+                    //    {accounts: data }
+                    //);                                                      
+                    that.$el.html(data);                                
+                });                                                              
+            }                                                                   
+        });                                                                     
+
+        var bav = new BusinessAnalysisView();
+
         var AvPView = Backbone.View.extend({                                 
             el: '#content_container',                                           
             render: function() {                                                
@@ -495,7 +511,7 @@
 
             business_analysis: function() {
                 updateNavigation(Backbone.history.fragment);
-                console.log("Business Analysis");
+                bav.render();
             },
 
             ratios: function(id) {

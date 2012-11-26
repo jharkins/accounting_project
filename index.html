@@ -83,6 +83,14 @@
     <script src="js/lodash.min.js"></script>
     <script src="js/backbone.min.js"></script>
 
+    <script type="text/template" id="intro-template">
+        <h3>About Alotonic Beverages Inc.</h3>
+        <p>With Alotonic, life is healthy, exciting and active. Alotonic organic beverages nourish the body while giving the kick you need to get your day going or to keep your adventures moving.</p>
+        <p>As a local Utah company we pride ourselves in being nonconformists and using organic ingredients and healthy options to produce delicious and refreshing energy drinks.</p>
+        <p>Every one of us, here at Alotonic Inc., love the outdoorsy lifestyle of Utah, from the best skiing on Earth to the awe inspiring scenery of Canyonlands.  We wanted to create a product that would help us explore this amazing landscape and be organic and healthy.  We believe our bodies deserve the best, that’s why we created Alotonic.</p>
+        <p>There are many flavors available and each one is specifically formulated for every individual taste.  We believe an organic healthy lifestyle doesn’t have to taste bad.</p>
+    </script>
+    
 
     <script type="text/template" id="t-account-template">
         <h3>T-Accounts</h3>
@@ -271,6 +279,17 @@
 
 
     <script type="text/javascript">
+        var IntroView = Backbone.View.extend({                                 
+            el: '#content_container',                                           
+            render: function() {                                                
+                var template = _.template(                              
+                    $('#intro-template').html()
+                );                                                      
+                this.$el.html(template);                                
+            }                                                                   
+        });                                                                     
+
+        var iv = new IntroView();
 
         var BalanceView = Backbone.View.extend({                                 
             el: '#content_container',                                           
@@ -506,7 +525,7 @@
 
             summary: function() {
                 updateNavigation(Backbone.history.fragment);
-                console.log("Summary");
+                iv.render();
             },
 
             business_analysis: function() {
